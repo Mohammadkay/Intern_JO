@@ -1,0 +1,54 @@
+﻿@model GraduationProject.Models.ViewModels.RegisterStudentViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateAccount</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Index/css/Forms.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+</head>
+<body>
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <a asp-action="Index" asp-controller="Home" class="anchor-for-icon fadeIn second">
+                <i id="backIcon" class="fa-solid fa-arrow-left fa-sm fadeIn second"></i>
+            </a>
+
+ 
+            <h2 class="active fadeIn second"> Register </h2>
+
+  
+            <div class="fadeIn first">
+                <img src="~/images/Logodark.png" id="icon" alt="Intern.JO" style="height: 50px;width: 110px;" />
+            </div>
+            <span class="text-danger"> @ViewBag.emailNotFound </span>
+ 
+            <form asp-action="CreateAccount" >
+                <div asp-validation-summary="All" class="text-danger" style="text-align: left;padding: 10px;"></div>
+                <input asp-for="Name" type="text" class="fadeIn second" placeholder="Name">
+                <input asp-for="Email" type="text" class="fadeIn second" placeholder="Email Address">
+                <input asp-for="Password" type="password" class="fadeIn third" placeholder="Password">
+                <input asp-for="ConfirmPassword" type="password" class="fadeIn third" placeholder="Confirm Password">
+                <input type="submit" class="fadeIn fourth" value="Create Account">
+            </form>
+        </div>
+    </div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>

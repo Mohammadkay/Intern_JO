@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Application>
+@{
+    ViewData["Title"] = "Applications";
+}
+
+<section class="is-hero-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+            Applications
+        </h1>
+    </div>
+</section>
+
+@if (Model.Any())
+{
+    <div class="card has-table">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                Applications
+            </p>
+            <a asp-action="Default" class="card-header-icon">
+                <span class="icon"><i class="mdi mdi-reload"></i></span>
+            </a>
+        </header>
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="image-cell"></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>University</th>
+                        <th>Training title</th>
+                        <th>Application Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="@Url.Content(item.Student.Image)" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name">@item.Student.StudentName</td>
+                            <td data-label="Name">@item.Student.StudentEmail</td>
+                            <td data-label="Company">@item.Student.University.UniversityName</td>
+                            <td data-label="City">@item.Training.TrainingTitle</td>
+                            <td data-label="City">@item.Status</td>
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <a asp-action="StudentProfile" asp-route-id="@item.StudentId" class="button small blue --jb-modal" data-target="sample-modal-2">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </a>
+                                    @if (item.Status == Application.status.Pending)
+                                    {
+                                        <a asp-route-TrainingId="@item.TrainingId" asp-route-StudentId="@item.StudentId" asp-action="Approve" asp-controller="Applications" class="button small green --jb-modal">
+                                            <span class="icon"><i class="mdi mdi-check-circle"></i></span>
+                                        </a>
+                                        <a asp-route-TrainingId="@item.TrainingId" asp-route-StudentId="@item.StudentId" asp-action="Reject" asp-controller="Applications" class="button small red --jb-modal">
+                                            <span class="icon"><i class="mdi mdi-cancel"></i></span>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty" style="margin-top:20px">
+        <div class="card-content">
+            <div>
+                <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+            </div>
+            <p>No Applications yet </p>
+        </div>
+    </div>
+}

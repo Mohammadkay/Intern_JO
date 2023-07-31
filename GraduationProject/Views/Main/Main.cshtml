@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Main";
+}
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+@if (ViewBag.CvPercent == 0)
+{
+
+    <div class="warning-box-big animate__animated animate__fadeIn animate__faster">
+        <div class="warning-box animate__animated animate__fadeInDown animate__faster">
+            <h4 style="color: var(--bs-danger);"> You Have To Fill Your Information... </h4>
+            <a asp-action="EditProfile" asp-controller="Profile" class="btn btn-outline-secondary" style="height: 40px;width: 50%;">Fill Now !</a>
+        </div>
+    </div>
+
+}
+
+
+@if (@ViewBag.ApplyingError != null)
+{
+    <div class="warning-box-big animate__animated animate__fadeIn animate__faster">
+        <div class="warning-box animate__animated animate__fadeInDown animate__faster">
+            <h4 style="color: var(--bs-danger);"> You Already Sent A Request To This Application !</h4>
+            <button class="btn btn-outline-success application-button"> OK </button>
+        </div>
+    </div>
+}
+
+<span class="text-danger">@ViewBag.Error</span>
+
+
+<div id="custom-search-input" class="animate__animated animate__zoomIn">
+    <div class="input-group">
+        <form class="form-group" asp-action="Search" asp-controller="Main" style="width:100%;height: 20px;">
+            <input type="text" name="term" class="search-query search-input" id="my-input" />
+            <div class="search-text">Search For Posts Or Companies</div>
+                <button type="submit">
+                    <span class="fa fa-search"></span>
+                </button>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="container-xxl py-5" style="padding: 50px 0px 0px 0px !important;">
+    <div class="container px-lg-5">
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-lg-4 col-md-6 animate__animated animate__zoomIn" data-wow-delay="0.2s">
+                    <div class="service-item d-flex flex-column justify-content-center text-center rounded">
+                        <div class="service-icon flex-shrink-0">
+                            <i class="@item.CategoryIcon"></i>
+                        </div>
+                        <h5 class="mb-3">@item.CategoryName</h5>
+                        <p style="font-size:smaller">
+                            @item.CategoryDetails
+                        </p>
+                        <a class="btn px-3 mt-auto mx-auto" asp-action="Posts" asp-controller="Main" asp-route-id="@item.CategoryId">Discover</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const myInput = document.getElementById('my-input');
+    const myDiv = document.querySelector('.search-text');
+
+    myInput.addEventListener('input', () => {
+        if (myInput.value) {
+            myDiv.classList.add('show');
+        } else {
+            myDiv.classList.remove('show');
+        }
+    });
+
+
+        var button = document.querySelector('.application-button');
+        button.addEventListener('click', function () {
+        var warningBoxBig = document.querySelector('.warning-box-big');
+        var warningBox = document.querySelector('.warning-box');
+        warningBoxBig.style.display = 'none';
+        warningBox.style.display = 'none';
+    });
+
+
+
+
+    var warningBoxBig = document.querySelector('.warning-box-big');
+    var warningBox = document.querySelector('.warning-box');
+
+    document.body.addEventListener('click', function (event) {
+        var target = event.target;
+
+        var isWithinWarningBox = warningBox.contains(target);
+        var isWithinWarningBoxBig = warningBoxBig.contains(target);
+
+        if (!isWithinWarningBox && isWithinWarningBoxBig) {
+            warningBoxBig.style.display = 'none';
+            warningBox.style.display = 'none';
+        }
+    });
+</script>
+

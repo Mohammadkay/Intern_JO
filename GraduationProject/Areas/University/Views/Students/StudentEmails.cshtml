@@ -1,0 +1,101 @@
+﻿@model IEnumerable<StudentEmail>
+@{
+    ViewData["Title"] = "StudentEmails";
+}
+<p>Upload An Excel Sheet Contains Students Emails To Add Students</p>
+<form method="post" enctype="multipart/form-data" asp-action="AddEmails">
+    <input id="TheFile" type="file" name="file" accept=".xlsx,.xls,.csv" required style="border: 1px solid rgb(156, 163, 175);">
+    <input type="submit" value="Upload" class="button green" />
+</form>
+<span style="color:red;">@ViewBag.err</span>
+<h1>Or Add One Student Email</h1>
+<div class="control icons-left icons-right">
+    <div class="field">
+        <form method="post" enctype="multipart/form-data" asp-action="AddEmail">
+            <input type="email" class="input" id="email" name="email" placeholder="Email" />
+            <span style="background:none" class="icon left"><i class="mdi mdi-mail"></i></span>
+            <input type="submit" value="Add" class="button green" />
+        </form>
+    </div>
+</div>
+<span style="color:red;">@ViewBag.oneErr</span>
+@if (Model.Any())
+{
+    <div class="card has-table" style="margin-top:20px">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                Students Emails
+            </p>
+            <a asp-action="StudentEmails" class="card-header-icon">
+                <span class="icon"><i class="mdi mdi-reload"></i></span>
+            </a>
+        </header>
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Created?</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-label="Name">@item.Email</td>
+                            <td data-label="CreationStatus">
+                                <label class="checkbox">
+                                    @if (item.isCreated)
+                                    {
+                                        <input type="checkbox" checked disabled>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" disabled>
+
+                                    }
+                                    <span class="check is-primary"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <a class="button small red --jb-modal" data-target="sample-modal" asp-action="DeleteEmail" asp-route-id="@item.Id">
+                                    <span class="icon"><i class="mdi mdi-delete"></i> </span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty">
+        <div class="card-content">
+            <div>
+                <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+            </div>
+            <p>Nothing here</p>
+        </div>
+    </div>
+}
+
+<div id="sample-modal-2" class="modal">
+    <div class="modal-background --jb-modal-close"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Sample modal</p>
+        </header>
+        <section class="modal-card-body">
+            <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
+            <p>This is sample modal</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button --jb-modal-close">Cancel</button>
+            <button class="button blue --jb-modal-close">Confirm</button>
+        </footer>
+    </div>
+</div>

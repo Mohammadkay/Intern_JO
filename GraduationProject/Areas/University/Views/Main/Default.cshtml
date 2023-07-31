@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "Default";
+}
+<section class="is-hero-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+            Field Training Dashboard | @ViewData["UniversityName"] <span style="color:green">@ViewBag.changed</span>
+        </h1>
+    </div>
+</section>
+<div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+    <div class="card">
+        <div class="card-content">
+            <div class="flex items-center justify-between">
+                <div class="widget-label">
+                    <h3>
+                        Trainees
+                    </h3>
+                    <h1>
+                        @ViewData["Trainee"]
+                    </h1>
+                </div>
+                <span class="icon widget-icon text-green-500"><i class="mdi mdi-school mdi-48px"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <div class="flex items-center justify-between">
+                <div class="widget-label">
+                    <h3>
+                        Not Trainee
+                    </h3>
+                    <h1>
+                        @ViewData["NotTrainee"]
+                    </h1>
+                </div>
+                <span class="icon widget-icon text-blue-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="flex items-center justify-between">
+                <div class="widget-label">
+                    <h3>
+                        Companies
+                    </h3>
+                    <h1>
+                        @ViewData["Companies"]
+                    </h1>
+                </div>
+                <span class="icon widget-icon text-red-500"><i class="mdi mdi-domain mdi-48px"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.Any())
+{
+    <div class="card has-table">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                Trainees
+            </p>
+            <a asp-action="Default" class="card-header-icon">
+                <span style="font-size: 20px;" class="icon"><i class="mdi mdi-reload"></i></span>
+            </a>
+        </header>
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Training Company</th>
+                        <th>Training Location</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="@Url.Content(item.Image)" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name">@item.StudentName</td>
+                            <td data-label="Name">@item.StudentEmail</td>
+                            <td data-label="Company">@item.Training.Company.CompanyName</td>
+                            <td data-label="City">@item.Training.TrainingLocation</td>
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <a asp-action="StudentProfile" asp-controller="Students" asp-route-id="@item.StudentId" asp-route-isTrainee="@item.isTrainee" class="button small green --jb-modal" data-target="sample-modal-2" type="button">
+                                        <span style="font-size: 25px;" class="icon"><i class="mdi mdi-account-circle"></i></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty" style="margin-top:20px">
+        <div class="card-content">
+            <div>
+                <span class="icon large">
+                    <i class="mdi mdi-emoticon-sad mdi-48px"></i>
+                    </span>
+            </div>
+            <p>No Trainee Students Found</p>
+        </div>
+    </div>
+}

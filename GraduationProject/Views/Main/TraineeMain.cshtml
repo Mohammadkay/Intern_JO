@@ -1,0 +1,217 @@
+﻿@model Student
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Intern.JO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&family=Work+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Main/site.css" />
+    <link rel="stylesheet" href="~/css/Main/responsive.css" />
+    <link rel="stylesheet" href="~/css/Main/fonts.css" />
+    <link rel="stylesheet" href="~/css/Animate/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/6.4.95/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,0,0" />
+</head>
+<body>
+    <aside>
+        <div class="left">
+            <a asp-action="Main" asp-controller="Main"><img src="~/images/Logodark.svg" alt="Facebook Logo"></a>
+        </div>
+        <div class="center">
+            <div class="active">
+                <a style="width:100px" asp-action="Main" asp-controller="Main">
+                    <span class="material-symbols-outlined">
+                        home
+                    </span>
+                    <h6>Home</h6>
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="logout">
+                <a asp-action="Logout" asp-controller="Account">
+                    <span class="material-symbols-outlined">
+                        logout
+                    </span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+
+
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <div class="container">
+                <div class="main-body">
+
+                    <div class="row gutters-sm">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="@Url.Content(Model.Image)" alt="User Image" class="rounded-circle" style="width: 190px;height: 190px;object-fit: cover;">
+                                        <div class="mt-3">
+                                            <h4 class="text-capitalize">@Model.StudentName</h4>
+                                            <a href="mailto:@Model.StudentEmail?subject=Contact"><p class="mb-1" style="color:#437ece"> @Model.StudentEmail</p> </a>
+                                            <p class="text-muted font-size-sm text-capitalize">@Model.Address</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Status</h6>
+                                        </div>
+                                        @if (@Model.isTrainee)
+                                        {
+                                            <div class="col-sm-9 text-capitalize">
+                                                Under Training
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-sm-9 text-capitalize">
+                                                Not Training Yet
+                                            </div>
+                                        }
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">University</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.University.UniversityName
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">GPA</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.GPA
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Skills</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Skills
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Experience</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Experience
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Projects</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Projects
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="width: 100%;margin-top: 20px;">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="card-header" style="text-align: center;background: none;border: none;font-size: 30px;color: var(--bs-cyan);">
+                                        Training Information
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Title</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Training.TrainingTitle
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Details</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Training.TrainingDetails
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Duration</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Training.StartDate.ToString("dd/MM/yyyy") - @Model.Training.EndDate.ToString("dd/MM/yyyy")
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Location</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Training.TrainingLocation
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Company</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-capitalize">
+                                            @Model.Training.Company.CompanyName - <a style="color: #437ece;" href="mailto:@Model.Training.Company.CompanyEmail">@Model.Training.Company.CompanyEmail </a> - @Model.Training.Company.CompanyLocation
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+
+    <div class="footer">
+        &copy; 2023 <span>Intern.JO</span> All Rights Reserved
+    </div>
+
+    <script src="https://kit.fontawesome.com/74c20ed08e.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/site.js"></script>
+</body>
+</html>

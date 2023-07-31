@@ -1,0 +1,150 @@
+﻿@model AllStudentsViewModel
+@{
+    ViewData["Title"] = "AllStudents";
+}
+<section class="is-hero-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+            All Students
+        </h1>
+    </div>
+</section>
+@if (Model.Active.Any())
+{
+    <div class="card has-table" style="margin-top:20px">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                Active Students
+            </p>
+            <a asp-action="AllStudents" class="card-header-icon">
+                <span class="icon"><i class="mdi mdi-reload"></i></span>
+            </a>
+        </header>
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Under Training</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Active)
+                    {
+                        <tr>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="@Url.Content(item.Image)" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name">@item.StudentName</td>
+                            <td data-label="Email">@item.StudentEmail</td>
+                            <td data-label="Address">@item.Address</td>
+                            <td data-label="TrainingStatus">
+                                <label class="checkbox">
+                                    @if (item.isTrainee)
+                                    {
+                                        <input type="checkbox" checked disabled>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" disabled>
+
+                                    }
+                                    <span class="check is-primary"></span>
+
+                                </label>
+                            </td>
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <a asp-action="StudentProfile" asp-controller="Students" asp-route-id="@item.StudentId" asp-route-isTrainee="@item.isTrainee" class="button small green --jb-modal" data-target="sample-modal-2" type="button">
+                                        <span style="font-size:25px" class="icon"><i class="mdi mdi-account-circle"></i></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty" style="margin-top:20px">
+        <div class="card-content">
+            <div>
+                <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+            </div>
+            <p>No Active students found</p>
+        </div>
+    </div>
+
+}
+
+<hr />
+@if (Model.NonActive.Any())
+{
+    <div class="card has-table" style="margin-top:20px">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+            Not Active Students
+        </p>
+        <a asp-action="AllStudents" class="card-header-icon">
+            <span class="icon"><i class="mdi mdi-reload"></i></span>
+        </a>
+    </header>
+    <div class="card-content">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.NonActive)
+                {
+                    <tr>
+                        <td class="image-cell">
+                            <div class="image">
+                                <img src="@Url.Content(item.Image)" class="rounded-full">
+                            </div>
+                        </td>
+                        <td data-label="Name">@item.StudentName</td>
+                        <td data-label="Company">@item.StudentEmail</td>
+                        <td data-label="City">@item.Address</td>
+                        <td class="actions-cell">
+                            <div class="buttons right nowrap">
+                                <a asp-action="StudentProfile" asp-controller="Students" asp-route-id="@item.StudentId" asp-route-isTrainee="@item.isTrainee" class="button small green --jb-modal" data-target="sample-modal-2" type="button">
+                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+}
+else{
+    <div class="card empty" style="margin-top:20px">
+        <div class="card-content">
+            <div>
+                <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+            </div>
+            <p>No Non Active students found</p>
+        </div>
+    </div>
+}

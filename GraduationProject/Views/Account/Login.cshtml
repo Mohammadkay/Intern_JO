@@ -1,0 +1,64 @@
+﻿@model GraduationProject.Models.ViewModels.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Index/css/Forms.css" />
+    <link href="~/css/animate/animate.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+</head>
+<body>
+    <div id="hi" class="wrapper fadeInDown animate__animated">
+        <div id="formContent">
+            <a asp-action="Index" asp-controller="Home" class="anchor-for-icon fadeIn second">
+                <i id="backIcon" class="fa-solid fa-arrow-left fa-sm fadeIn second"></i>
+            </a>
+
+            <h2 class="active fadeIn second"> Sign In </h2>
+
+            <div class="fadeIn first">
+                <img src="~/images/Logodark.png" id="icon" alt="Intern.JO" style="height: 50px;width: 110px;" />
+            </div>
+            <span class="text-danger">@ViewBag.SessionTimeOut</span>
+            <div class="text-danger">@ViewBag.emailNotFound</div>
+            <form asp-action="Login">
+                <div asp-validation-summary="All" class="text-danger" style="text-align: left;padding: 10px;"></div>
+                <input asp-for="UserName" type="text" class="fadeIn second"  placeholder="Email Address">
+                <input asp-for="Password" type="password" class="fadeIn third"  placeholder="Password" >
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+
+            <div id="formFooter">
+                <a class="underlineHover fadeIn second" asp-action="forgotPassword">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script>
+        window.addEventListener("beforeunload", function (event) {
+            // Trigger the animation using jQuery and Animate.css
+            setTimeout(function () {
+                // Trigger the animation on the element
+                document.getElementById('hi').classList.add('animate__fadeOut');
+            }, 100);
+            
+        });
+    </script>
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+</body>
+</html>
+

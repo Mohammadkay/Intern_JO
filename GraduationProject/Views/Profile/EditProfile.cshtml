@@ -1,0 +1,198 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "EditProfile";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/Index/css/Forms.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    
+<div class="warning-box-big animate__animated animate__fadeIn animate__faster">
+    <div class="warning-box animate__animated animate__fadeInDown animate__faster" style="height: fit-content;">
+        <h4 style="color: var(--bs-danger);"><div asp-validation-summary="All"></div> </h4>
+        <button class="btn btn-outline-success application-button"> OK </button>
+    </div>
+</div>
+}
+
+<form asp-action="EditProfile" enctype="multipart/form-data" method="post">
+
+    <input asp-for="StudentId" hidden />
+    <input asp-for="StudentEmail" hidden />
+
+<div class="main-body">
+    <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <p> Profile Picture </p>
+                        <input type="file" id="fileInput" style="display: none;" name="image">
+
+
+                            <div class="image-container" style="background-image:url('@Url.Content(Model.Image)')">
+                                <img id="imageClick" src="@Url.Content(Model.Image)" class="rounded-circle edit-image" style="cursor:pointer;
+">
+                            </div>
+
+
+                            <div id="change-div"> Change <i class="fa-solid fa-pen"></i> </div> 
+
+
+
+                        <div class="mt-3">
+                            <h6>@Model.StudentEmail</h6>
+
+                            <label asp-for="StudentName"></label>
+                            <input asp-for="StudentName" />
+
+                            <label asp-for="Address"></label>
+                            <input asp-for="Address"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                        <div class="row" style="align-items: center;">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">GPA</h6>
+                        </div>
+                        <div class="col-sm-9 text-capitalize">
+                                <input asp-for="GPA"/>
+                        </div>
+                    </div>
+                    <hr style="margin:5px" />
+                        <div class="row" style="align-items: center;">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Skills</h6>
+                        </div>
+                        <div class="col-sm-9 text-capitalize">
+                            <input asp-for="Skills" type="text"/>
+                        </div>
+                    </div>
+                        <hr style="margin:5px">
+                        <div class="row" style="align-items: center;">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Experience</h6>
+                        </div>
+                        <div class="col-sm-9 text-capitalize">
+                            <input asp-for="Experience" />
+                        </div>
+                    </div>
+                        <hr style="margin:5px">
+                        <div class="row" style="align-items: center;">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Projects</h6>
+                        </div>
+                        <div class="col-sm-9 text-capitalize">
+                            <input asp-for="Projects" />
+                        </div>
+                    </div>
+                        <hr style="margin:5px">
+                        <div class="row" >
+                            <input type="submit" value="Update" style="width: 25%;margin: auto;text-align: center;padding: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>
+
+@section scripts {
+    <script>
+        const fileInput = document.getElementById('fileInput');
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+        document.getElementById('imageClick').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
+        document.getElementById('change-div').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            var file = event.target.files[0]; 
+
+            if (file && file.type.startsWith('image')) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('imageClick').src = e.target.result;
+
+                    var imageContainer = document.querySelector('.image-container');
+                    imageContainer.style.backgroundImage = 'url(' + e.target.result + ')';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('imageClick').addEventListener('mouseenter', function () {
+            document.getElementById('change-div').style.display = 'block';
+
+
+        });
+
+        document.getElementById('change-div').addEventListener('mouseenter', function () {
+            document.getElementById('change-div').style.display = 'block';
+
+        });
+
+        document.getElementById('imageClick').addEventListener('mouseleave', function () {
+            document.getElementById('change-div').style.display = 'none';
+
+        });
+
+        document.getElementById('change-div').addEventListener('mouseleave', function () {
+            document.getElementById('change-div').style.display = 'none';
+
+        });
+
+        var button = document.querySelector('.application-button');
+        button.addEventListener('click', function () {
+            var warningBoxBig = document.querySelector('.warning-box-big');
+            var warningBox = document.querySelector('.warning-box');
+            warningBoxBig.style.display = 'none';
+            warningBox.style.display = 'none';
+        });
+
+
+        var warningBoxBig = document.querySelector('.warning-box-big');
+        var warningBox = document.querySelector('.warning-box');
+
+        document.body.addEventListener('click', function (event) {
+            var target = event.target;
+
+            var isWithinWarningBox = warningBox.contains(target);
+            var isWithinWarningBoxBig = warningBoxBig.contains(target);
+
+            if (!isWithinWarningBox && isWithinWarningBoxBig) {
+                warningBoxBig.style.display = 'none';
+                warningBox.style.display = 'none';
+            }
+        });
+
+        //-----------------------------------------------------------------
+
+
+
+    </script>
+}

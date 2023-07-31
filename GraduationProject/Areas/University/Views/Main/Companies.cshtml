@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Company>
+@{
+    ViewData["Title"] = "Companies";
+}
+
+<section class="is-hero-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+            All companies
+        </h1>
+    </div>
+</section>
+@if (Model.Any())
+{
+    <div class="card has-table" style="margin-top:20px">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                Companies
+            </p>
+            <a asp-action="Companies" class="card-header-icon">
+                <span class="icon"><i class="mdi mdi-reload"></i></span>
+            </a>
+        </header>
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Info</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="@Url.Content(item.Image)" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name">@item.CompanyName</td>
+                            <td data-label="Company">@item.Account.Email</td>
+                            <td data-label="City">@item.CompanyInfo</td>
+                            <td data-label="City">@item.CompanyLocation</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty">
+        <div class="card-content">
+            <div>
+                <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+            </div>
+            <p>Nothing here</p>
+        </div>
+    </div>
+}
+

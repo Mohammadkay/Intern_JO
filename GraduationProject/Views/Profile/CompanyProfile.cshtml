@@ -1,0 +1,115 @@
+﻿@model CompanyProfileViewModel
+@{
+    ViewData["Title"] = "CompanyProfile";
+}
+
+<div class="com-header">
+    <div class="com-logo"> <img src="@Url.Content(Model.company.Image)" alt=""> </div>
+    <div class="com-details">
+        <div class="com-row">
+            <div class="com-name"> @Model.company.CompanyName </div>
+            <div class="com-email"> <a href="mailto:@Model.company.CompanyEmail">@Model.company.CompanyEmail</a></div>
+            <div class="com-location"> @Model.company.CompanyLocation </div>
+        </div>
+        <div class="com-row">
+            <div class="com-info"> @Model.company.CompanyInfo </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.trainings.Any())
+{
+
+    <div class="leaderboard" style="margin-top:60px">
+        <header>
+            <h1 class="leaderboard__title">
+                <span class="leaderboard__title--top">Posts</span>
+            </h1>
+        </header>
+        <main class="leaderboard__profiles">
+            @foreach (var item in Model.trainings)
+            {
+
+                <button class="show-details-btn" data-id="@item.TrainingId" style="border: 0;background: 0;">
+
+                    <div class="leaderboard__profile" data-id="@item.TrainingId">
+                        <img src="@Url.Content(item.Company.Image)" height="80" width="100" alt="Company Logo" class="leaderboard__picture">
+                        <div class="com-info-parent">
+                            <span class="leaderboard__name" style="font-size: 20px;font-weight: 700">@item.TrainingTitle</span>
+                            <span class="leaderboard__name"><span class="details"> </span>@item.Category.CategoryName</span>
+                            <span class="leaderboard__name" style="font-size:smaller"><span class="details">Company: </span>@item.Company.CompanyName </span>
+                        </div>
+                        <span class="leaderboard__name" style="font-size: 12px;"><span class="details">Location: </span>@item.TrainingLocation</span>
+
+                    </div>
+
+                </button>
+
+
+
+                <div style="position: fixed;width: 100%;height: 100%;background-color: rgb(0 0 0 / 75%);top: 0px;left: 0px;z-index: 10;" class="details animate__animated animate__fadeIn animate__faster" data-id="@item.TrainingId" id="bigDiv-@item.TrainingId">
+
+                    <div class="pop-up animate__animated animate__fadeIn animate__faster" data-id="@item.TrainingId">
+                        <div class="child">
+                            <a href="#" class="prevent-link" id="myLink-@item.TrainingId">
+                                <i class="fa-solid fa-xmark" style="font-size: 30px;color: var(--bs-danger);position: absolute;border: 2px solid;border-radius: 50%;padding: 2.5px 6px 3px 5px;top: 3%;right: 2%;">
+                                </i>
+                            </a>
+                            <a asp-action="CompanyProfile" asp-controller="Profile" asp-route-id="@item.Company.CompanyId">
+                                <img style="border-radius: 20%;" src="@Url.Content(item.Company.Image)" width="100" height="100" alt="company logo">
+                            </a>
+                            <hr>
+                        </div>
+                        <div class="child">
+                            <h1 style="color: #437ece;">@item.Category.CategoryName</h1>
+                            <h3 style="color: #437ece;">@item.TrainingTitle</h3>
+                            <p style="color: var(--secondary);">
+                                @item.TrainingDetails
+                            </p>
+                            <p style="color: var(--bs-teal);"> Starting date: @item.StartDate.ToString("dd/MM/yyyy") - Ending Date: @item.EndDate.ToString("dd/MM/yyyy")</p>
+                            <h5 style="color: var(--bs-info);">@item.TrainingLocation</h5>
+                            <hr>
+                        </div>
+
+                        <div class="child">
+                            <button class="apply-btn btn btn-outline-primary" data-TrainingId="@item.TrainingId" style="width: 50%;">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </main>
+    </div>
+
+}
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            $('.show-details-btn').click(function () {
+                var id = $(this).data('id');
+                $('.details[data-id="' + id + '"]').toggle();
+            });
+
+            $('.apply-btn').click(function () {
+                var TrainingId = $(this).data('trainingid');
+                window.location.href = '/Applications/Apply?TrainingId=' + TrainingId;
+            });
+
+
+        });
+
+        $('.prevent-link').click(function (event) {
+            event.preventDefault();
+            var id = $(this).attr('id').split('-')[1];
+            $('.details[data-id="' + id + '"]').hide();
+        });
+
+
+        $(document).mouseup(function (e) {
+            var container = $(".pop-up");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                container.closest('.details').hide();
+            }
+        });
+    </script>
+}

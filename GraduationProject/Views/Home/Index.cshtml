@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Intern.JO</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/main/fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/Index/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Index/css/Home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+</head>
+<body>
+    <div class="site-top" id="top">
+        <div class="site-top-overlay"></div>
+        <div class="site-header">
+            <div class="container">
+                <a href="#" class="site-brand">
+                    <img src="~/images/logo-no-background.svg" />
+                </a>
+                <div class="main-navigation">
+                    <a href="#" class="visible-xs toggle-menu"><i style="color: #2F3061;" class="fa fa-bars"></i></a>
+                    <nav class="site-navigation">
+                        <ul>
+                            <li><a asp-action="CompanyRegister" asp-controller="Account">Register as a company</a></li>
+                            <li><a href="#">Privacy policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-text">
+            <div class="container text-center white-text">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <h1>Welcome to Intern.JO</h1>
+                    <h4>
+                        Welcome to Intern.jo, your hub for IT internships in Jordan.
+                        We connect talented students with top companies.
+                        Discover opportunities that match your interests and skills set,
+                        build your network, and kickstart your career.
+                    </h4>
+
+                    <a asp-action="Login" asp-controller="Account" class="cta">
+                        <span>Login</span>
+                        <svg width="13px" height="10px" viewBox="0 0 13 10">
+                            <path d="M1,5 L11,5"></path>
+                            <polyline points="8 1 12 5 8 9"></polyline>
+                        </svg>
+                    </a>
+                    <a asp-action="CreateAccount" asp-controller="Account" class="cta">
+                        <span>Create Account</span>
+                        <svg width="13px" height="10px" viewBox="0 0 13 10">
+                            <path d="M1,5 L11,5"></path>
+                            <polyline points="8 1 12 5 8 9"></polyline>
+                        </svg>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/css/Index/js/jquery-1.10.2.min.js"></script>
+    <script src="~/css/Index/js/plugins.js"></script>
+    <script src="~/css/Index/js/main.js"></script>
+
+</body>
+</html>

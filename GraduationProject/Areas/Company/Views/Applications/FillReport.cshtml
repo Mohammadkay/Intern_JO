@@ -1,0 +1,221 @@
+﻿@model CReport
+@{
+    ViewData["Title"] = "FillReport";
+}
+<form asp-action="FillReport" asp-controller="Applications">
+    @if (Model != null)
+    {
+        <section class="is-hero-bar">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                <h1 class="title">
+                    Edit @Model.student.StudentName Report
+                </h1>
+            </div>
+        </section>
+        <input type="hidden" asp-for="@Model.CReportId">
+        <input type="hidden" asp-for="@Model.StudentId">
+    }
+    else
+    {
+        <section class="is-hero-bar">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                <h1 class="title">
+                    Fill @ViewData["name"] Report
+                </h1>
+            </div>
+        </section>
+        <input type="hidden" asp-for="@Model.StudentId" value="@ViewBag.id">
+    }
+    <div class="card mb-6">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-ballot"></i></span>
+                Report Details
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="field">
+                <label asp-for="Hours" class="label"></label>
+                <div class="control">
+                    <input class="input" asp-for="Hours" placeholder="Hours...">
+                </div>
+                <span asp-validation-for="Hours" class="help" style="color:red;">
+                </span>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="Commitment"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="Commitment">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Commitment" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="Experience"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="Experience">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Experience" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="TeamWork"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="TeamWork">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="TeamWork" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="Tasks"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="Tasks">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Tasks" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="ProblemSolving"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="ProblemSolving">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="ProblemSolving" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="Technical"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="Technical">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Technical" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="OverAll"></label>
+                <div class="control">
+                    <div class="select">
+                        <select asp-for="OverAll">
+                            <option value="">--Select Rate--</option>
+                            <option value="@CReport.Rate.Accpetable">Accpetable</option>
+                            <option value="@CReport.Rate.Good">Good</option>
+                            <option value="@CReport.Rate.Excellent">Excellent</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="OverAll" class="help" style="color:red;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label asp-for="suggestions" class="label"></label>
+                <div class="control">
+                    <textarea asp-for="suggestions" class="textarea" placeholder="Suggestions..."></textarea>
+                </div>
+                <span asp-validation-for="suggestions" class="help" style="color:red;">
+                </span>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="communicate"></label>
+                <div class="field-body">
+                    <div class="field grouped multiline">
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="com" asp-for="communicate" value="true" checked="">
+                                <span class="check"></span>
+                                <span class="control-label">Yes</span>
+                            </label>
+                        </div>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="com" asp-for="communicate" value="false">
+                                <span class="check"></span>
+                                <span class="control-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="field">
+                <label class="label" asp-for="SupervisorName"></label>
+                <div class="control">
+                    <input type="text" asp-for="SupervisorName" class="input" />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="SupervisorEmail"></label>
+                <div class="control">
+                    <input type="text" asp-for="SupervisorEmail" class="input" />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="SupervisorPhone"></label>
+                <div class="control">
+                    <input type="tel" asp-for="SupervisorPhone" class="input" />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" asp-for="dateSubmitted "></label>
+                <div class="control">
+                    <input type="datetime-local" asp-for="dateSubmitted" class="input" />
+                </div>
+            </div>
+            <hr />
+            <div class="field grouped">
+                <div class="control">
+                    <button type="submit" class="button green">
+                        Submit
+                    </button>
+                </div>
+                <div class="control">
+                    <button type="reset" class="button red">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</form>

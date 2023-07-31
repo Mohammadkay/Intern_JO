@@ -1,0 +1,72 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "StudentProfile";
+}
+
+<div>
+
+
+    <div class="container-student-profile">
+        <div class="first">
+            <div class="left-s">
+                <div class="info">
+                    <img src="@Url.Content(Model.Image)" alt="Student-Image">
+                    <h4>@Model.StudentName</h4>
+                </div>
+            </div>
+            <div class="right-s">
+                <div class="row-s">
+                    <div>Email :</div>
+                    <div>@Model.StudentEmail</div>
+                </div>
+                <div class="row-s">
+                    <div>University : </div>
+                    <div>@Model.University.UniversityName</div>
+                </div>
+                <div class="row-s">
+                    <div>GPA :</div>
+                    <div>@Model.GPA</div>
+                </div>
+                <div class="row-s">
+                    <div>Address :</div>
+                    <div>@Model.Address</div>
+                </div>
+                <div class="row-s">
+                    <div>Status :</div>
+                    @if (@Model.isTrainee)
+                    {
+                        <div> Under Training </div>
+                    }
+                    else
+                    {
+                        <div> Not Trainee </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="second">
+            <h1 style="text-align: center;color: #404040;font-size: 20px;margin: 20px 0px;font-weight: 600;">
+                Technical Information
+            </h1>
+            <div class="second-container">
+                <div class="row-t">
+                    <div>Skills :</div>
+                    <div>@Model.Skills</div>
+                </div>
+                <div class="row-t">
+                    <div>Experience :</div>
+                    <div>@Model.Experience</div>
+                </div>
+                <div class="row-t">
+                    <div>Projects :</div>
+                    <div>@Model.Projects</div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>

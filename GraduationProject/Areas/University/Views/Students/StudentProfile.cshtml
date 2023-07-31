@@ -1,0 +1,90 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "StudentProfile";
+}
+
+<div class="container-student-profile">
+    <div class="first">
+        <div class="left-s">
+            <div class="info">
+                <img src="@Url.Content(Model.Image)" alt="Student-Image">
+                <h4 style="font-weight: 600;font-size: 20px;color: dimgrey;">
+                    @Model.StudentName
+                </h4>
+            </div>
+        </div>
+        <div class="right-s">
+            <div class="row-s">
+                <div>Email :</div>
+                <div>@Model.StudentEmail</div>
+            </div>
+            <div class="row-s">
+                <div>GPA :</div>
+                <div>@Model.GPA</div>
+            </div>
+            <div class="row-s">
+                <div>Address :</div>
+                <div>@Model.Address</div>
+            </div>
+            <div class="row-s">
+                <div>Status :</div>
+                @if (@Model.isTrainee)
+                {
+                    
+                    <div> Under Training </div>
+                }
+                else
+                {
+                    <div> Not Trainee </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (Model.isTrainee)
+    {
+            <div class="second">
+            <h1 style="text-align: center;color: #404040;font-size: 20px;margin: 20px 0px;font-weight: 600;">
+                Training Information
+            </h1>
+        <div class="second-container">
+
+
+            <div class="row-t">
+                <div>Company Name :</div>
+                <div>@Model.Training.Company.CompanyName</div>
+            </div>
+            <div class="row-t">
+                <div>Location :</div>
+                <div>@Model.Training.TrainingLocation</div>
+            </div>
+            <div class="row-t">
+                <div>Duration :</div>
+                <div>@Model.Training.StartDate.ToString("dd/MM/yyyy") - @Model.Training.EndDate.ToString("dd/MM/yyyy")</div>
+            </div>
+            <div class="row-t">
+                <div>Training Title : </div>
+                <div>@Model.Training.TrainingTitle</div>
+            </div>
+            <div class="row-t">
+                <div>Training Description : </div>
+                <div style="width: 40%;">@Model.Training.TrainingDetails
+                </div>
+            </div>
+            @if (ViewBag.ReportExists == true)
+            {
+                    <div class="row-t" style="border-bottom: 0;justify-content: space-around;">
+                        <a class="view-report" asp-action="Report" asp-controller="Students" asp-route-id="@Model.StudentId">Report </a>
+                    </div>
+            }
+            else
+            {
+             <div style="text-align:center;"> No Report Yet !!  </div>   
+            }
+            
+        </div>
+    </div>
+    }
+
+
+</div>

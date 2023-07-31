@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Views\Account\CompanyRegister.cshtml" />
+    <None Include="Views\Account\CreateAccount.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Applications\YourApplications.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Main\Main.cshtml" />
+    <None Include="Views\Main\OurCompanies.cshtml" />
+    <None Include="Views\Main\Posts.cshtml" />
+    <None Include="Views\Main\Search.cshtml" />
+    <None Include="Views\Main\TraineeMain.cshtml" />
+    <None Include="Views\Profile\CompanyProfile.cshtml" />
+    <None Include="Views\Profile\EditProfile.cshtml" />
+    <None Include="Views\Profile\YourProfile.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\css\Index\js\jquery-1.10.2.min.js" />
+    <None Include="wwwroot\css\Index\js\main.js" />
+    <None Include="wwwroot\css\Index\js\plugins.js" />
+    <None Include="wwwroot\Images\Logodark.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess.EFCore\DataAccess.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Company\Data\" />
+    <Folder Include="Areas\University\Data\" />
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+</Project>

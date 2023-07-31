@@ -1,0 +1,171 @@
+﻿@model IEnumerable<Application>
+@{
+    ViewData["Title"] = "YourApplications";
+}
+
+<span class="text-danger">@ViewBag.Error</span>
+
+@if (@ViewBag.ApplyingStatus != null)
+{
+    <div class="warning-box-big animate__animated animate__fadeIn animate__faster">
+        <div class="warning-box animate__animated animate__fadeInDown animate__faster">
+            <h4 style="color: var(--bs-success);"> You Have Made The Application Succesfully</h4>
+            <button class="btn btn-outline-success application-button"> OK </button>
+        </div>
+    </div>
+}
+
+
+
+
+
+@if (Model.Any())
+{
+
+    <h1 class="text-center" style="margin-bottom:30px;color: var(--bs-gray);">Your Applications</h1>
+    <table class="table" style="margin: 0px auto 40px auto;width: 80%;background: white;border-radius: 10px;">
+        <thead>
+            <tr class="first-row">
+                <th>
+                    @Html.DisplayNameFor(model => model.Training.Company.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Training.TrainingTitle)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th> Confirm/Delete </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="td-parent">
+
+                            <img class="td-child" src="@Url.Content(item.Training.Company.Image)" height="50" width="50" style="border-radius: 10%;">
+
+                            <div class="td-child">
+                                <p style="padding-left: 10px; font-weight:700"> @item.Training.Company.CompanyName</p>
+                                <p style="padding-left: 10px; padding-left: 10px;font-size: 10px;color: #AAA;margin-top: -10px;"> @item.Training.StartDate.ToString("dd/MM/yyyy")</p>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </td>
+                    <td>
+                        @item.Training.TrainingTitle
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td style="position:relative">
+                        @if (item.Status == Application.status.Accepted)
+                        {
+                            <a onclick="showConfirmation()">
+                                <span class="material-symbols-outlined check-accepted">
+                                    check_circle
+                                </span>
+                            </a>
+                            <div id="confirmationPopup" class="warning-box-big animate__animated animate__fadeIn animate__faster">
+                                <div class="warning-box animate__animated animate__fadeInDown animate__faster">
+                                    <h4 style="color: var(--bs-primary);"> Are you sure you want to choose @item.Training.TrainingTitle Training?   </h4>
+                                    <h6 style="color:var(--bs-danger);"> * Please note that this action cannot be undone. </h6>
+                                    <div style="display: flex;gap: 50px;">
+                                    <a asp-action="ChooseApplication" asp-controller="Applications" asp-route-trainingId="@item.TrainingId" class="btn btn-outline-primary"> Confirm </a>
+                                    <a class="btn btn-outline-primary cancel-button" onclick="hideConfirmation()"> Cancel </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="material-symbols-outlined check-pending">
+                                check_circle
+                            </span>
+
+                        }
+                        <a onclick="showDelete()">
+                            <span class="material-symbols-outlined cancel-icon">
+                                cancel
+                            </span>
+                        </a>
+                        <div id="deletePopup" class="warning-box-big animate__animated animate__fadeIn animate__faster">
+                            <div class="warning-box animate__animated animate__fadeInDown animate__faster">
+                                <h4 style="color: var(--bs-danger);"> Are you sure you want to delete @item.Training.TrainingTitle Application?   </h4>
+                                <div style="display: flex;gap: 50px;">
+                                    <a asp-action="DeleteApplication" asp-controller="Applications" asp-route-trainingId="@item.TrainingId" class="btn btn-outline-primary"> Delete </a>
+                                    <a class="btn btn-outline-primary cancel-button" onclick="hideDelete()"> Cancel </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
+
+else
+{
+    <div class="search-not-found">
+        <span class="material-symbols-outlined" style="font-size: 70px;color: #437ece;">
+            library_books
+        </span>
+        <h3 style="color: var(--bs-gray);">@ViewBag.NoResultsFound</h3>
+    </div>
+}
+
+<script>
+    var button = document.querySelector('.application-button');
+    button.addEventListener('click', function () {
+        var warningBoxBig = document.querySelector('.warning-box-big');
+        var warningBox = document.querySelector('.warning-box');
+        warningBoxBig.style.display = 'none';
+        warningBox.style.display = 'none';
+    });
+
+
+    var warningBoxBig = document.querySelector('.warning-box-big');
+    var warningBox = document.querySelector('.warning-box');
+
+    document.body.addEventListener('click', function (event) {
+        var target = event.target;
+
+        var isWithinWarningBox = warningBox.contains(target);
+        var isWithinWarningBoxBig = warningBoxBig.contains(target);
+
+        if (!isWithinWarningBox && isWithinWarningBoxBig) {
+            warningBoxBig.style.display = 'none';
+            warningBox.style.display = 'none';
+        }
+    });
+
+
+    function showConfirmation() {
+        var confirmationPopup = document.getElementById("confirmationPopup");
+        confirmationPopup.style.display = "block";
+    }
+
+    function hideConfirmation() {
+        var confirmationPopup = document.getElementById("confirmationPopup");
+        confirmationPopup.style.display = "none";
+
+    }    function showDelete() {
+        var confirmationPopup = document.getElementById("deletePopup");
+        confirmationPopup.style.display = "block";
+    }
+
+    function hideDelete() {
+        var confirmationPopup = document.getElementById("deletePopup");
+        confirmationPopup.style.display = "none";
+    }
+</script>

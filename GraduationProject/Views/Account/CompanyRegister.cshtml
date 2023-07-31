@@ -1,0 +1,86 @@
+﻿@model GraduationProject.Models.ViewModels.CoRegisterViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CompanyRegister</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Index/css/Forms.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+</head>
+<body style="background-size: cover;height: 100vh;">
+    <div class="wrapper-com fadeInDown">
+        <div id="formContent-com">
+
+            <a asp-action="Index" asp-controller="Home" class="anchor-for-icon fadeIn second">
+                <i id="backIcon" class="fa-solid fa-arrow-left fa-sm fadeIn second"></i>
+            </a>
+
+            <h2 class="active fadeIn second"> Company Register </h2>
+
+            <div class="fadeIn first">
+                <img src="~/images/Logodark.png" id="icon" alt="Intern.JO" style="height: 50px;width: 110px;" />
+            </div>
+
+            <form asp-action="CompanyRegister" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="All" class="text-danger" style="text-align: left;padding: 10px;"></div>
+                <div class="parent-co-register">
+
+                    <div class="child-co-register fadeIn first">
+                        <h5> Company Details </h5>
+                    </div>
+
+                    <div class="child-co-register fadeIn first">
+                        <h5> Login Details </h5>
+                    </div>
+
+
+                    <div class="child-co-register">
+                        <input asp-for="CompanyName" type="text" id="login" class="fadeIn second" placeholder="Company Name" required autocomplete="off">
+                    </div>
+
+                    <div class="child-co-register">
+                        <input asp-for="Email" type="text" id="login" class="fadeIn second" placeholder="Email Address" required autocomplete="off">
+                    </div>
+
+                    <div class="child-co-register">
+                        <input asp-for="CompanyInfo" type="text" id="login" class="fadeIn third" placeholder="Company Info" required autocomplete="off">
+                    </div>
+
+                    <div class="child-co-register">
+                        <input asp-for="Password" type="password" id="password" class="fadeIn third" placeholder="Password" required autocomplete="off">
+                    </div>
+
+                    <div class="child-co-register">
+                        <input asp-for="CompanyLocation" type="text" id="login" class="fadeIn fourth" placeholder="Company Location" required autocomplete="off">
+                    </div>
+
+                    <div class="child-co-register">
+                        <input asp-for="ConfirmPassword " type="password" id="password" class="fadeIn fourth" placeholder="Confirm Password" required autocomplete="off">
+                    </div>
+                    
+                    <div class="child-co-register">
+                        <input class="fadeIn fourth" type="file" id="image" name="Image" required>
+                        <label for="images" style="font-size:10px;">Company Logo</label>
+                    </div>
+                </div>
+                <hr />
+                <input type="submit" class="fadeIn fourth" value="Register">
+            </form>
+
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

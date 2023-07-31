@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Company>
+@{
+    ViewData["Title"] = "OurCompanies";
+}
+
+    @if (Model.Any())
+    {
+        <div class="leaderboard">
+            <header>
+                <h1 class="leaderboard__title">
+                    <span class="leaderboard__title--top">Companies</span>
+                </h1>
+            </header>
+            <main class="leaderboard__profiles">
+                @foreach (var item in Model)
+                {
+                    <a asp-action="CompanyProfile" asp-controller="Profile" asp-route-id="@item.CompanyId" class="anchor-for-companies">
+                        <div class="leaderboard__profile profile-company">
+                            <img src="@Url.Content(item.Image)" height="80" width="100" alt="Company Logo" class="leaderboard__picture">
+                            <div class="com-info-parent">
+                                <span class="leaderboard__name" style="font-size: 20px;font-weight: 700">@item.CompanyName</span>
+                                <span class="leaderboard__name" style="font-size: 12px;"><span class="details">Location: </span>@item.CompanyLocation</span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </main>
+        </div>
+    }
+
+    else
+    {
+        <div class="search-not-found">
+            <span class="material-symbols-outlined" style="font-size: 70px;color: #437ece;">
+                apartment
+            </span>
+            <h3 style="color: var(--bs-gray);">There Is No Companies In The System Yet !!</h3>
+        </div>
+    }

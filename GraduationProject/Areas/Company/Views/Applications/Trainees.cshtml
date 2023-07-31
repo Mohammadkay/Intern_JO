@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "Trainees";
+}
+@if (Model.Any())
+{
+    <div class="card has-table">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-school"></i></span>
+                Trainees
+            </p>
+            <a asp-action="Default" class="card-header-icon">
+                <span class="icon"><i class="mdi mdi-reload"></i></span>
+            </a>
+        </header>
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="image-cell"></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Training title</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="@Url.Content(item.Image)" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name">@item.StudentName</td>
+                            <td data-label="Name">@item.StudentEmail</td>
+                            <td data-label="City">@item.Training.TrainingTitle</td>
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <a asp-action="StudentProfile" asp-route-id="@item.StudentId" class="button small blue --jb-modal" data-target="sample-modal-2">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </a>
+                                    <a asp-route-id="@item.StudentId" style="padding:8px"  asp-action="FillReport" asp-controller="Applications" class="button small green --jb-modal" data-target="sample-modal">
+                                        Fill Report
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty" style="margin-top:20px">
+        <div class="card-content">
+            <div>
+                <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+            </div>
+            <p>No Trainees yet </p>
+        </div>
+    </div>
+}
+

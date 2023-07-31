@@ -1,0 +1,282 @@
+﻿@model CReport
+@{
+    ViewData["Title"] = "Report";
+}
+
+<div class="report-container">
+
+    <div class="uni-header">
+
+        <div class="left-side"> <img src="~/images/HuLogo.png" alt=""> </div>
+        <div class="center-side">
+            <h5> Hashemite University </h5>
+            <h5>
+                Prince Al‐Hussein bin Abdullah II Faculty for
+                Information Technology
+            </h5>
+            <h5>Students Practical Training Program – Evaluation Form </h5>
+        </div>
+        <div class="right-side"> <img src="~/images/IT-logo.jpg" alt=""></div>
+    </div>
+
+    <div class="content-report">
+        <h4 class="hFour">Important instructions for filling this form: </h4>
+
+        <p>
+            This form can be submitted as a Hardcopy. It must be printed, carefully filled‐in, signed, and put in a sealed
+            envelope by the immediate training supervisor in the training organization. The envelope should be addressed to
+            the supervisor of the students' training program. The Student (Trainee) is responsible for forwarding/submitting
+            the sealed envelope to the students' training program's supervisor.
+        </p>
+
+        <br>
+
+        <p>
+            Instead, a softcopy of the form can be submitted. The immediate training supervisor will fill it out
+            electronically and send it directly to the university's training supervisor's email from the training
+            organization's email.
+        </p>
+        <br>
+
+        <h4 class="hFour">Importent notes:</h4>
+
+        <ol>
+            <li>
+                <span style="font-weight:700">1)</span> The sealed envelope is not supposed to be opened, ripped, or damaged. Otherwise, the report will not be
+                accepted, and the earned grade would be incomplete pending verification.<br />
+
+            </li>
+            <li><span style="font-weight:700">2)</span> Students must bring back this form within eight weeks, starting from the first day of training.<br /> </li>
+            <li>
+                <span style="font-weight:700">3)</span> Along with this form, a detailed report must also be submitted regarding your training activities and
+                objectives.
+            </li>
+        </ol>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th colspan="2">First: Student Personal Information.</th>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td class="value-student">@Model.student.StudentName</td>
+        </tr>
+        <tr>
+            <td>University</td>
+            <td class="value-student">@Model.student.University.UniversityName</td>
+        </tr>
+        <tr>
+            <td>Training Period</td>
+            <td>From <span class="value-student"> @Model.student.Training.StartDate.ToString("dd/MM/yyyy") </span> To <span class="value-student"> @Model.student.Training.EndDate.ToString("dd/MM/yyyy") </span> </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <th colspan="2">Second: Training Organization.</th>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td class="value-org">@Model.student.Training.Company.CompanyName</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td class="value-org"> @Model.student.Training.Company.CompanyLocation</td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <th>Third: Student Attendence.</th>
+        </tr>
+        <tr>
+            <td> How do you evaluate the student's commitment to working hours?</td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    @if (Model.Commitment.Equals(CReport.Rate.Accpetable))
+                    {
+                        <li>
+                            <input type="checkbox" checked disabled />
+                            <label class="value-bold"> Acceptable </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" disabled />
+                            <label> Good </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" disabled />
+                            <label> Excellent </label>
+                        </li>
+
+                    }
+                    else if (Model.Commitment.Equals(CReport.Rate.Good))
+                    {
+                        <li>
+                            <input type="checkbox" disabled />
+                            <label> Acceptable </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" checked disabled />
+                            <label class="value-bold"> Good </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" disabled />
+                            <label> Excellent </label>
+                        </li>
+                    }
+                    else if (Model.Commitment.Equals(CReport.Rate.Excellent))
+                    {
+                        <li>
+                            <input type="checkbox" disabled />
+                            <label> Acceptable </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" disabled />
+                            <label> Good </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" checked disabled />
+                            <label class="value-bold"> Excellent </label>
+                        </li>
+                    }
+
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total Number of training hours: <span style="color: #ca0f0f;font-weight: 600;">@Model.Hours</span>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <th colspan="2">Fourth: The evaluation of skills and knowledge students earned during training. .</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="value-bold">Item</td>
+            <td class="value-bold">Rate</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Has the ability to gain valuable practical experience and build on top of his/her knowledge. </td>
+            <td class="value-rate">@Model.Experience</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>
+                A good team worker; willing to cooperate; accepts ideas; desires to improve; shows interest; works well
+                with others.
+            </td>
+            <td class="value-rate">@Model.TeamWork</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>
+                Accomplishes an acceptable amount of tasks with accurate and correct solutions; fast; eager; does a good
+                job.
+            </td>
+            <td class="value-rate">@Model.Tasks</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Has the ability to combine theoretical and practical knowledge in problem‐solving. </td>
+            <td class="value-rate">@Model.ProblemSolving</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Technical Competency; possess good conceptual skills; organizational skills. </td>
+            <td class="value-rate">@Model.Technical</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Overall Rating </td>
+            <td class="value-rate">@Model.OverAll</td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <th>Fifth: Training Supervisor</th>
+        </tr>
+        <tr>
+            <td>Has the training coordinator at the university communicated with the company?</td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    @if (Model.communicate)
+                    {
+                        <li>
+                            <input type="radio" checked />
+                            <lable class="value-bold"> Yes </lable>
+                        </li>
+                        <li>
+                            <input type="radio" disabled />
+                            <lable> No </lable>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <input type="radio" disabled />
+                            <lable> Yes </lable>
+                        </li>
+                        <li>
+                            <input type="radio" checked />
+                            <lable class="value-bold"> No </lable>
+                        </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <th>Sixth: Suggestions.</th>
+        </tr>
+        <tr>
+            <td>
+                What  suggestions  do  you  have  for  the  student  that  might  increase  his/her  value  to  the
+                organization and further his/her professional development?
+            </td>
+        </tr>
+        <tr>
+            <td class="value-org"> <p> @Model.suggestions </p> </td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <th>
+                Seventh: Training Supervisor Information
+            </th>
+        </tr>
+        <tr>
+            <td><span class="value-bold">Name: </span> <span class="value-supervisor"> @Model.SupervisorName </span></td>
+        </tr>
+        <tr>
+            <td><span class="value-bold">Email:  </span> <span class="value-supervisor">@Model.SupervisorEmail</span></td>
+        </tr>
+        <tr>
+            <td><span class="value-bold">Phone:  </span> <span class="value-supervisor">@Model.SupervisorPhone</span></td>
+        </tr>
+        <tr>
+            <td><span class="value-bold">Date:  </span> <span class="value-supervisor">@Model.dateSubmitted.ToString("dd/MM/yyyy")</span></td>
+        </tr>
+    </table>
+</div>
+
+

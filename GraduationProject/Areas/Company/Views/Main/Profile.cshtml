@@ -1,0 +1,92 @@
+﻿@model CompanyProfileEditViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            Profile
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="image w-48 h-48 mx-auto">
+            <img id="preview" src="@Url.Content(Model.Image)" alt="Avatar" class="rounded-full">
+        </div>
+        <hr>
+        <form asp-action="Profile" enctype="multipart/form-data" method="post">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input type="text" readonly="" asp-for="@Model.CompanyName" class="input is-static">
+                </div>
+            </div>
+            <hr>
+            <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control">
+                    <input type="text" readonly="" asp-for="@Model.CompanyEmail" class="input is-static">
+                </div>
+            </div>
+            <hr>
+            <div class="field">
+                <label class="label">Location</label>
+                <div class="control">
+                    <input type="text" readonly="" asp-for="@Model.CompanyLocation" class="input is-static">
+                </div>
+            </div>
+            <hr>
+            <div class="field">
+                <label class="label">Info</label>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea class="input" style="height: 100px;" placeholder="Fill company info..." asp-for="@Model.CompanyInfo"></textarea>
+                        </div>
+                        <p class="help">Required. Your Info</p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="field">
+                <label class="label">Change Your Logo</label>
+                <div class="field-body">
+                    <div class="field file">
+                        <label class="upload control">
+                            <input id="TheFile" type="file" name="Image">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="field">
+                <div class="control">
+                    <button type="submit" class="button green">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        const fileInput = document.getElementById('TheFile');
+        const preview = document.getElementById('preview');
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener('load', () => {
+                preview.src = reader.result;
+            });
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}
